@@ -5,6 +5,14 @@ import jwt from "jsonwebtoken";
 
 const jwtSecret = process.env.JWT_SECRET;
 
+function serializeUser(user: { id: number | bigint; name: string; role: string }) {
+  return {
+    id: Number(user.id),
+    name: user.name,
+    role: user.role,
+  };
+}
+
 export async function createUser(req: Request, res: Response) {
   try {
     const { name, password } = req.body;
@@ -16,12 +24,8 @@ export async function createUser(req: Request, res: Response) {
     }
     const user = await userService.createUser({ name, password });
     return res.status(201).json({
-      message: "Usuario crido com sucesso",
-      user: {
-        id: Number(user.id),
-        name: user.name,
-        role: user.role,
-      },
+      message: "Usuario criado com sucesso",
+      user: serializeUser(user),
     });
   } catch (err) {
     return res
@@ -71,7 +75,7 @@ export async function login(req: Request, res: Response) {
     }
 
     const token = jwt.sign(
-      { id: Number(user.id), role: user.role },
+      { id: Number(user.id), role: user.role, name: user.name },
       jwtSecret,
       {
         expiresIn: "2h",
@@ -81,6 +85,7 @@ export async function login(req: Request, res: Response) {
     return res.status(200).json({
       message: "Login realizado com sucesso",
       token,
+      user: serializeUser(user),
     });
   } catch (err) {
     console.error(err);
@@ -126,11 +131,7 @@ export async function me(req: Request, res: Response) {
     }
 
     return res.status(200).json({
-      user: {
-        id: Number(user.id),
-        name: user.name,
-        role: user.role,
-      },
+      user: serializeUser(user),
     });
   } catch (err) {
     console.error(err);

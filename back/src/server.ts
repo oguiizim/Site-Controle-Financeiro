@@ -4,7 +4,7 @@ import cors from "cors";
 import router from "./routes";
 
 const allowedOrigins = [
-  "http://localhost:8080",
+  "http://localhost:3000",
   "https://your-money.vercel.app",
 ];
 const app = express();
