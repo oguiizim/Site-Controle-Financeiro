@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "bun --watch src/server.ts",
-    "start": "bun src/server.ts"
+    "start": "bun src/server.ts && bunx prisma generate",
+    "build": "bun src/server.ts && bunx prisma generate && prisma migration deploy"
   },
   "peerDependencies": {
     "typescript": "^5"

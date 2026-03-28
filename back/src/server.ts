@@ -6,6 +6,7 @@ import router from "./routes";
 const allowedOrigins = [
   "http://localhost:3000",
   "https://your-money.vercel.app",
+  "https://siimoney.vercel.app",
 ];
 const app = express();
 const port = process.env.PORT || 8080;
