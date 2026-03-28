@@ -8,8 +8,7 @@
   },
   "scripts": {
     "dev": "bun --watch src/server.ts",
-    "start": "bun src/server.ts",
-    "build": "bun src/server.ts"
+    "start": "bun src/server.ts"
   },
   "peerDependencies": {
     "typescript": "^5"
